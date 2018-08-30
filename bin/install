@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC2155
+
+install_desk(){
+     # shellcheck disable=SC2034
+    local install_type=$1
+    local version=$2
+    local install_path=$3
+
+    if [ "$TMPDIR" = "" ]; then
+        local tmp_download_dir=$(mktemp -d -t asdf-desk_XXXXXX) 
+    else
+        local tmp_download_dir=$TMPDIR
+    fi
+
+    # path to the tar file
+    local source_path=$(get_download_file_path "$version" "$tmp_download_dir")
+    echo "$source_path"
+    download_source_file "$version" "$source_path"
+
+    # running this in a subshell
+    # we don't want to disturb current working dir
+    echo "sourcepath : $source_path"
+    echo "installpath: $install_path"
+    (
+        tar zxf "$source_path" -C "$install_path" --strip-components=1 || exit 1
+        mkdir "$install_path/bin"
+        ln -s "$install_path/desk" "$install_path/bin/desk"
+    )
+}
+
+download_source_file() {
+    local version=$1
+    local download_path=$2
+    # shellcheck disable=SC2155
+    local download_url=$(get_download_url "$version")
+
+    curl -Lo "$download_path" -C - "$download_url"
+}
+
+get_download_file_path() {
+    local version=$1
+    local tmp_download_dir=$2
+    local pkg_name="desk"
+
+    echo "$tmp_download_dir/$pkg_name"
+}
+
+get_download_url() {
+    local version=$1
+
+    echo "https://github.com/jamesob/desk/archive/v${version}.tar.gz"
+}
+
+
+install_desk "$ASDF_INSTALL_TYPE" "$ASDF_INSTALL_VERSION" "$ASDF_INSTALL_PATH"
+
