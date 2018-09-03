@@ -1,4 +1,5 @@
 # asdf-desk
+[![Build Status](https://travis-ci.org/endorama/asdf-desk.svg?branch=master)](https://travis-ci.org/endorama/asdf-desk)
 
 [Desk](https://github.com/jamesob/desk) plugin for [asdf](https://github.com/asdf-vm/asdf) version manager
 

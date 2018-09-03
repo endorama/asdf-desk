@@ -1,0 +1,8 @@
+language: c
+script: asdf plugin-test desk https://github.com/endorama/asdf-desk.git 'desk version'
+before_script:
+  - git clone https://github.com/asdf-vm/asdf.git
+  - . asdf/asdf.sh
+os:
+  - linux
+  - osx
