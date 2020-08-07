@@ -1,3 +1,5 @@
+_**Archived**: I'm currently using Homebrew for additional software management so I've stopped using this asdf plugin_
+
 # asdf-desk
 [![Build Status](https://travis-ci.org/endorama/asdf-desk.svg?branch=master)](https://travis-ci.org/endorama/asdf-desk)
 
